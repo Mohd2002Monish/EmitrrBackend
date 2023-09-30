@@ -16,6 +16,7 @@ const authFunction = async (user, res) => {
     auth: true,
     userName: user.name,
     score: user.scores,
+    id: user._id,
   });
 };
 app.post("/signin", async (req, res) => {
