@@ -10,11 +10,12 @@ app.get("/line", (req, res) => {
 });
 
 const authFunction = async (user, res) => {
+  console.log(user);
   return res.status(200).send({
     msg: "LOGIN SUCCESS",
     auth: true,
     userName: user.name,
-    role: user.role,
+    score: user.scores,
   });
 };
 app.post("/signin", async (req, res) => {
