@@ -111,4 +111,28 @@ app.post("/signup", async (req, res) => {
     return res.status(500).send({ error: "An error occurred during signup" });
   }
 });
+app.patch("/score/:id", async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    const scoreToAdd = req.body.score; // Assuming you send the score in the request body
+
+    // Find the user by their ID
+    const user = await UserModel.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Add the score to the scores array
+    user.scores.push(scoreToAdd);
+
+    // Save the updated user document
+    await user.save();
+
+    return res.status(200).json({ message: "Score added successfully" });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: "Internal Server Error" });
+  }
+});
 module.exports = app;
