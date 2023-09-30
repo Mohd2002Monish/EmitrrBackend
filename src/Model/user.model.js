@@ -18,6 +18,10 @@ const UserSchema = new Schema({
     require: true,
     default: false,
   },
+  scores: {
+    type: [Number],
+    default: [],
+  },
 });
 const UserModel = model("user", UserSchema);
 module.exports = UserModel;

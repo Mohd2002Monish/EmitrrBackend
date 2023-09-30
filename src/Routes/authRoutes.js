@@ -1,7 +1,7 @@
 const express = require("express");
 const UserModel = require("../Model/user.model");
-const bcrypt = require("bcrypt");
 const app = express();
+const bcrypt = require("bcrypt");
 
 app.use(express.json());
 
@@ -100,6 +100,7 @@ app.post("/signup", async (req, res) => {
       name,
       email,
       pass: hash,
+      score: [],
     });
     await user.save();
 
