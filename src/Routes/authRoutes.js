@@ -10,7 +10,6 @@ app.get("/line", (req, res) => {
 });
 
 const authFunction = async (user, res) => {
-  console.log(user);
   return res.status(200).send({
     msg: "LOGIN SUCCESS",
     auth: true,
@@ -113,21 +112,17 @@ app.post("/signup", async (req, res) => {
 });
 app.patch("/score/:id", async (req, res) => {
   try {
-    const userId = req.params.userId;
-    const scoreToAdd = req.body.score; // Assuming you send the score in the request body
-
-    // Find the user by their ID
-    const user = await UserModel.findById(userId);
+    const userId = req.params.id;
+    const scoreToAdd = req.body.score;
+    const user = await UserModel.find({ _id: userId });
 
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
 
-    // Add the score to the scores array
-    user.scores.push(scoreToAdd);
+    user[0].scores.push(scoreToAdd);
 
-    // Save the updated user document
-    await user.save();
+    await user[0].save();
 
     return res.status(200).json({ message: "Score added successfully" });
   } catch (error) {
