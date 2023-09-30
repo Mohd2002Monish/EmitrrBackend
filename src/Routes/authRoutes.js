@@ -10,11 +10,12 @@ app.get("/line", (req, res) => {
 });
 
 const authFunction = async (user, res) => {
+  console.log(user);
   return res.status(200).send({
     msg: "LOGIN SUCCESS",
     auth: true,
     userName: user.name,
-    score: user.scores,
+    scores: user.scores,
     id: user._id,
   });
 };
@@ -123,7 +124,7 @@ app.patch("/score/:id", async (req, res) => {
     user[0].scores.push(scoreToAdd);
 
     await user[0].save();
-
+    console.log(user);
     return res.status(200).json({ message: "Score added successfully" });
   } catch (error) {
     console.error(error);
